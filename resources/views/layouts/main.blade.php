@@ -23,10 +23,11 @@
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="">
+                        <div class="logo">
                             <a href="index.html">
-															<img src="assets/images/logo.jpg" alt="Logo" style="height: 5rem; border-radius: 50%" srcset="">
-														</a>
+                                <img src="assets/images/logo.jpg" alt="Logo"
+                                    style="height: 5rem; border-radius: 50%" srcset="">
+                            </a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -79,7 +80,7 @@
                                 <i class="bi bi-stack"></i>
                                 <span>Components</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="component-alert.html">Alert</a>
                                 </li>
@@ -133,7 +134,7 @@
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Extra Components</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="extra-component-avatar.html">Avatar</a>
                                 </li>
@@ -157,7 +158,7 @@
                                 <i class="bi bi-grid-1x2-fill"></i>
                                 <span>Layouts</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="layout-default.html">Default Layout</a>
                                 </li>
@@ -183,7 +184,7 @@
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Form Elements</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="form-element-input.html">Input</a>
                                 </li>
@@ -217,7 +218,7 @@
                                 <i class="bi bi-journal-check"></i>
                                 <span>Form Validation</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="form-validation-parsley.html">Parsley</a>
                                 </li>
@@ -229,7 +230,7 @@
                                 <i class="bi bi-pen-fill"></i>
                                 <span>Form Editor</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="form-editor-quill.html">Quill</a>
                                 </li>
@@ -257,7 +258,7 @@
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>Datatables</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="table-datatable.html">Datatable</a>
                                 </li>
@@ -274,7 +275,7 @@
                                 <i class="bi bi-pentagon-fill"></i>
                                 <span>Widgets</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="ui-widgets-chatbox.html">Chatbox</a>
                                 </li>
@@ -292,7 +293,7 @@
                                 <i class="bi bi-egg-fill"></i>
                                 <span>Icons</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="ui-icons-bootstrap-icons.html">Bootstrap Icons </a>
                                 </li>
@@ -310,7 +311,7 @@
                                 <i class="bi bi-bar-chart-fill"></i>
                                 <span>Charts</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="ui-chart-chartjs.html">ChartJS</a>
                                 </li>
@@ -332,7 +333,7 @@
                                 <i class="bi bi-map-fill"></i>
                                 <span>Maps</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="ui-map-google-map.html">Google Map</a>
                                 </li>
@@ -377,7 +378,7 @@
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Authentication</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="auth-login.html">Login</a>
                                 </li>
@@ -395,7 +396,7 @@
                                 <i class="bi bi-x-octagon-fill"></i>
                                 <span>Errors</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="error-403.html">403</a>
                                 </li>
@@ -457,8 +458,9 @@
             </footer>
         </div>
     </div>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/dashboard.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+    {{-- <script src="/assets/js/horizontal-layout.js" /> --}}
     @yield('scripts')
 </body>
 
