@@ -11,4 +11,10 @@ class Schedule extends Model
     public function bookings() {
         return $this->hasMany(Booking::class, "schedule_id", "schedule_id");
     }
+    public function staff() {
+        return $this->belongsTo(Staff::class, "staff_id", "staff_id");
+    }
+    public function sevice() {
+        return $this->belongsTo(Service::class, "service_id", "service_id");
+    }
 }
