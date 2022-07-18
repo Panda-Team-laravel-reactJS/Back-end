@@ -6901,7 +6901,7 @@ body.theme-dark .layout-horizontal .header-top .burger-btn i {
   display: inline-block;
 }
 body.theme-dark .layout-horizontal .header-top .logo img {
-  height: 10rem;
+  height: 20px;
 }
 body.theme-dark .layout-horizontal .header-top-right {
   display: flex;
