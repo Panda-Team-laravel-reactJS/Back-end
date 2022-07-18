@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\ApiAccountController;
+use App\Http\Controllers\Api\ApiCategoryController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix("/account/")->group(function(){
     Route::post("register",[ApiAccountController::class,"register"]);
     Route::post("login",[ApiAccountController::class,"login"]);
+});
+Route::prefix("/categories")->group(function(){
+    Route::get("", [ApiCategoryController::class,"all"]);
+    Route::get("/{id}", [ApiCategoryController::class,"get"]);
 });

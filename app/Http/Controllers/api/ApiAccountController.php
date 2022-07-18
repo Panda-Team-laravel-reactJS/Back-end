@@ -20,6 +20,7 @@ class ApiAccountController extends Controller
             "password" => "required|min:8",
             "name" => "required|string",
             "email" => "required|email",
+            "phone_number" => "required|numeric|digits:10",
             "address" => "required",
             "gender" => "required|in:Male,Female,Others",
             "dob" => "required|date"
@@ -32,12 +33,15 @@ class ApiAccountController extends Controller
             "name.string" => "Tên phải là ký tự ",
             "email.required" => "Email không được để trống!",
             "email.email" => "Email phải nhập đúng định dạng",
+            "phone_number.required" => "Số điện thoại không được để trống",
+            "phone_number.numeric" => "Số điện thoại không được chứa ký tự",
             "address.required" => "Địa chỉ không được để trống!",
             "gender.required" => "Giới tính không được để trống!",
             "gender.in" => "Giói tính phải là: Male(Nam), Female(Nữ) hoặc là Others(Giới tính khác)",
             "dob.required" => "Ngày, tháng, năm sinh không được để trống!",
             "dob.date" => "Nhập đúng định dạng: yyyy-mm-dd"
         ]);
+        
         if ($validator->fails()) {
             return ["error" => $validator->errors(), "status" => "fail"];
         }
@@ -53,6 +57,7 @@ class ApiAccountController extends Controller
                 $customer = new Customer();
                 $customer->name = $request->name;
                 $customer->email = $request->email;
+                $customer->phone_number = $request->phone_number;
                 $customer->address = $request->address;
                 $customer->gender = $request->gender;
                 $customer->dob = $request->dob;
@@ -65,6 +70,7 @@ class ApiAccountController extends Controller
                 $account->OTP = rand(100000, 999999);
                 $account->OTP_expired = date_create()->modify("+5 minutes");
                 $account->save();
+                DB::commit();
 
         } catch (Exception $e) {
             DB::rollBack();
