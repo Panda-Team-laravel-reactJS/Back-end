@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Services;
+use App\Models\Service;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
@@ -15,7 +15,7 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        $serviceList = Services::where("category_id", $this->id)->get();
+        $serviceList = Service::where("category_id", $this->id)->get();
         return [
             "id" => $this->id,
             "name" => $this->name,

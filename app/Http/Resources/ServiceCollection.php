@@ -4,21 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ServiceCollection extends ResourceCollection
+class ServiceCollection extends Collection
 {
-    /**
-     * Transform the resource collection into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
-    public function toArray($request)
-    {
-        return [
-            "data" => $this->collection,
-            "count" => count($this->collection),
-            "error" => "",
-            "status" => "successful"
-        ];
-    }
+    
 }
