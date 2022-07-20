@@ -16,7 +16,7 @@ class ApiCustomerController extends Controller
     public function getCustomer($id)
     {
         $customer = Customer::find($id);
-        return $customer == null ? ["error" => "can't find this customer", "status" => "fail"] : new CustomerResource($customer);
+        return $customer == null ? ["error" => "Can't find this customer", "status" => false] : new CustomerResource($customer);
     }
 
     public function editCustomer(Request $req, $id)
@@ -29,6 +29,8 @@ class ApiCustomerController extends Controller
             "gender" => "required|in:Male,Female,Others",
             "dob" => "required|date"
         ], [
+
+
             "name.required" => "Tên tài khoản không được để trống!",
             "name.string" => "Tên phải là ký tự ",
             "email.required" => "Email không được để trống!",
@@ -43,9 +45,9 @@ class ApiCustomerController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return ["error" => $validator->errors(), "status" => "fail"];
+            return ["error" => $validator->errors(), "status" => false];
         }
-        $customer = Customer::find($id);
+        
         try {
             $customer = Customer::find($id);
             $customer->name = $req->name;
@@ -58,7 +60,7 @@ class ApiCustomerController extends Controller
 
             return ["error" => "", "status" => "created", "data" => $customer];
         } catch (Exception $e) {
-            return ["error" => $e->getMessage(), "status" => "fail"];
+            return ["error" => $e->getMessage(), "status" => false];
         }
     }
 }

@@ -43,7 +43,7 @@ class ApiAccountController extends Controller
         ]);
         
         if ($validator->fails()) {
-            return ["error" => $validator->errors(), "status" => "fail"];
+            return ["error" => $validator->errors(), "status" => false];
         }
         //save account
 
@@ -52,7 +52,7 @@ class ApiAccountController extends Controller
             DB::beginTransaction();
             try {
                 if (ctype_digit($request->username)) {
-                    throw new Exception("username is not a number");
+                    throw new Exception("Username is not a number");
                 }
                 $customer = new Customer();
                 $customer->name = $request->name;
@@ -74,9 +74,9 @@ class ApiAccountController extends Controller
 
         } catch (Exception $e) {
             DB::rollBack();
-            return ["status" => "fail", "error" => $e->getMessage()];
+            return ["status" => false, "error" => $e->getMessage()];
         }
-        return ["status" => "OK", "error" => ""];
+        return ["status" => true, "error" => ""];
     }
 
     public function login(Request $request)
@@ -91,15 +91,15 @@ class ApiAccountController extends Controller
 
         ]);
         if ($validator->fails()) {
-            return ["error" => $validator->errors(), "status" => "fail"];
+            return ["error" => $validator->errors(), "status" => false];
         }
         $account = Account::find($request->username);
         if ($account != null) {
             if (Hash::check($request->password, $account->password)) {
-                return ["status" => "OK", "error" => ""];
+                return ["status" => true, "error" => ""];
             };
-            return ["status" => "fail", "error" => "Password wrong!"];
+            return ["status" => false, "error" => "Password wrong!"];
         }
-        return ["status" => "fail", "error" => "This account is not exist!"];
+        return ["status" => false, "error" => "This account is not exist!"];
     }
 }
