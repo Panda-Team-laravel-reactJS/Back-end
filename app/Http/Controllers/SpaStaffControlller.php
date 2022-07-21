@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 class SpaStaffControlller extends Controller
 {
     //view all staff
-    function getIndexStaff(){
+    public function index(){
         $staff = Staff::all();
-        return view('staff.admin',compact('staff'));
+        return view('pages.staff.index',compact('staff'));
         // create view admin trong folder staff
     }
     // hien form
-    function Formadd(){
-        return view('staff.formAdd');
+    public function create(){
+        return view('pages.staff.create');
         // tạo một formAdd trong folder staff
     }
 
@@ -28,13 +28,9 @@ class SpaStaffControlller extends Controller
             'email'=> 'required',
             'address'=> 'required',
             'gender'=> 'required',
-            'dob'=> 'required',
-            'phone'=> 'required',
-            'salary'=> 'required',
-
         ]);
         Staff::create($request -> all());
-        return redirect()->route('staff.admin')->with('success','1 new staff created sucessfully');
+        return redirect()->route('staff.index')->with('success','1 new staff created sucessfully');
     }
 
     // edit staff
@@ -42,7 +38,7 @@ class SpaStaffControlller extends Controller
     // hiện form edit 
     public function edit($id){
         $staff= Staff::find($id);
-        return view('staff.edit');
+        return view('pages.staff.edit');
         // tạo view form edit trong folder staff nhen
     }
     public function update(Request $request,$id){
@@ -59,16 +55,16 @@ class SpaStaffControlller extends Controller
         $staff = Staff::find($id);
         $staff->update($request->all());
 
-        return redirect()->route('staff.admin')->with('success','1 staff updated sucessfully');
+        return redirect()->route('staff.index')->with('success','1 staff updated sucessfully');
     }
     // bỏ trong button edit nhen
 
     // delete 
-    function DeleteStaff($id){
+    function delete($id){
         // Trong view show admin Customer, truyen vao trong button xoa
         $staff = Staff::find($id);
         $staff -> delete();
-        return redirect()->route('staff.admin')->with('success','Delete Successfully');
+        return redirect()->route('staff.index')->with('success','Delete Successfully');
         // Tro den route show admin staff
     }
 

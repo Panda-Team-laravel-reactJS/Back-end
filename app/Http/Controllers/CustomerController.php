@@ -8,22 +8,30 @@ use App\Models\Account;
 class CustomerController extends Controller
 {
     //view customer
-    function getIndexCustomer(){
-        $customers = Customer::all();
-        return view('customers.admin',compact('customers'));
+    public function index(){
+        $customers = Customer::join("accounts", "customers.id", "=", "accounts.customer_id")
+                                ->get();
+        return view('pages.customer.index',compact('customers'));
         // create view admin trong folder customers
     }
     // Delete 1 customer 
-    function DeleteCustomer($id){
+    public function delete($username){
         // Trong view show admin Customer, truyen vao trong button xoa
-        $customers = Customer::find($id);
-        $customers -> delete();
-        return redirect()->route('customers.admin')->with('success','Delete Successfully');
+        $customer = Customer::find($username);
+        $customer->delete();
+        return redirect()->route('customers.index')->with('success','Delete Successfully');
         // Tro den route show admin customers
     }
-    function BanCustomer(){
-        //
-
+    public function ban($username){
+        $customer = Customer::find($username);
+        $customer->is_banned = true;
+        $customer->save();
+        return redirect()->route('customers.index');
     }
-
+    public function unBan($username) {
+        $customer = Customer::find($username);
+        $customer->is_banned = false;
+        $customer->save();
+        return redirect()->route('customers.index');
+    }
 }
