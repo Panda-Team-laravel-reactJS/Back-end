@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiCustomerController extends Controller
 {
-    public function getCustomer($id)
+    public function get($id)
     {
         $customer = Customer::find($id);
         return $customer == null ? ["error" => "Can't find this customer", "status" => false] : new CustomerResource($customer);
     }
 
-    public function editCustomer(Request $req, $id)
+    public function edit(Request $req, $id)
     {
         $validator = Validator::make($req->all(), [
             "name" => "required|string",

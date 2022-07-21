@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Customer;
-use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,11 +20,11 @@ class ApiAccountController extends Controller
             "password" => "required|min:8",
             "name" => "required|string",
             "email" => "required|email",
-            "phone_number" => "required|numeric|digits:10",
+            "phoneNumber" => "required|numeric|digits:10",
             "address" => "required",
             "gender" => "required|in:Male,Female,Others",
             "dob" => "required|date"
- 
+
         ], [
             "username.required" => "Tên đăng nhập không được để trống!",
             "password.required" => "Mật khẩu không được để trống!",
@@ -33,45 +33,44 @@ class ApiAccountController extends Controller
             "name.string" => "Tên phải là ký tự ",
             "email.required" => "Email không được để trống!",
             "email.email" => "Email phải nhập đúng định dạng",
-            "phone_number.required" => "Số điện thoại không được để trống",
-            "phone_number.numeric" => "Số điện thoại không được chứa ký tự",
+            "phoneNumber.required" => "Số điện thoại không được để trống",
+            "phoneNumber.numeric" => "Số điện thoại không được chứa ký tự",
             "address.required" => "Địa chỉ không được để trống!",
             "gender.required" => "Giới tính không được để trống!",
             "gender.in" => "Giói tính phải là: Male(Nam), Female(Nữ) hoặc là Others(Giới tính khác)",
             "dob.required" => "Ngày, tháng, năm sinh không được để trống!",
             "dob.date" => "Nhập đúng định dạng: yyyy-mm-dd"
         ]);
-        
+
         if ($validator->fails()) {
             return ["error" => $validator->errors(), "status" => false];
         }
         //save account
 
         //save customer
-    
-            DB::beginTransaction();
-            try {
-                if (ctype_digit($request->username)) {
-                    throw new Exception("Username is not a number");
-                }
-                $customer = new Customer();
-                $customer->name = $request->name;
-                $customer->email = $request->email;
-                $customer->phone_number = $request->phone_number;
-                $customer->address = $request->address;
-                $customer->gender = $request->gender;
-                $customer->dob = $request->dob;
-                $customer->save();
 
-                $account = new Account();
-                $account->customer_id = $customer->id;
-                $account->username = $request->username;
-                $account->password = Hash::make($request->password);
-                $account->OTP = rand(100000, 999999);
-                $account->OTP_expired = date_create()->modify("+5 minutes");
-                $account->save();
-                DB::commit();
+        DB::beginTransaction();
+        try {
+            if (ctype_digit($request->username)) {
+                throw new Exception("Username is not a number");
+            }
+            $customer = new Customer();
+            $customer->name = $request->name;
+            $customer->email = $request->email;
+            $customer->phone_number = $request->phoneNumber;
+            $customer->address = $request->address;
+            $customer->gender = $request->gender;
+            $customer->dob = $request->dob;
+            $customer->save();
 
+            $account = new Account();
+            $account->customer_id = $customer->id;
+            $account->username = $request->username;
+            $account->password = Hash::make($request->password);
+            $account->OTP = rand(100000, 999999);
+            $account->OTP_expired = date_create()->modify("+5 minutes");
+            $account->save();
+            DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
             return ["status" => false, "error" => $e->getMessage()];
@@ -98,7 +97,7 @@ class ApiAccountController extends Controller
             if (Hash::check($request->password, $account->password)) {
                 return ["status" => true, "error" => ""];
             };
-            return ["status" => false, "error" => "Password wrong!"];
+            return ["status" => false, "error" => "Password is wrong!"];
         }
         return ["status" => false, "error" => "This account is not exist!"];
     }

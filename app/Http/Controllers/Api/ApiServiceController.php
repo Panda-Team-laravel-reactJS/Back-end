@@ -10,12 +10,12 @@ use App\Models\Service;
 
 class ApiServiceController extends Controller
 {
-    public function getAll()
+    public function all()
     {
         $services = Service::get();
-        return $services == null ? ["error" => "No data", "status" => false] : new ServiceCollection($services);
+        return $services->isEmpty() ? ["error" => "No data", "status" => false] : new ServiceCollection($services);
     }
-    public function getOne($id)
+    public function get($id)
     {
         $services = Service::find($id);
         return $services == null ? ["error" => "Can't find this service", "status" => false] : new ServiceResource($services);

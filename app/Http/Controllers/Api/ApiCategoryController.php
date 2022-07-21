@@ -13,7 +13,7 @@ class ApiCategoryController extends Controller
     public function all()
     {
         $categories = Category::get();
-        return $categories == null ? ["error" => "No data", "status" => false] : new CategoryCollection($categories);
+        return $categories->isEmpty() ? ["error" => "No data", "status" => false] : new CategoryCollection($categories);
     }
     public function get($id)
     {
