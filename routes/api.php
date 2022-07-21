@@ -29,22 +29,21 @@ Route::prefix("/categories")->group(function(){
     Route::get("/{id}", [ApiCategoryController::class,"get"]);
 });
 Route::prefix("/customer")->group(function(){
-    Route::get("/{id}", [ApiCustomerController::class,"getCustomer"]);
-    Route::put("edit/{id}", [ApiCustomerController::class, "editCustomer"]);
+    Route::get("/{id}", [ApiCustomerController::class,"get"]);
+    Route::put("edit/{id}", [ApiCustomerController::class, "edit"]);
 });
 Route::prefix("/service")->group(function(){
-    Route::get("", [ApiServiceController::class,"getAll"]);
-    Route::get("/{id}", [ApiServiceController::class, "getOne"]);
-    Route::get("feedback", [ApiFeedbackController::class, "getAllFeedback"]);
+    Route::get("", [ApiServiceController::class,"get"]);
+    Route::get("/{id}", [ApiServiceController::class, "get"]);
+    Route::get("feedback", [ApiFeedbackController::class, "all"]);
 });
 Route::prefix("/staff")->group(function(){
-    Route::get("", [ApiStaffController::class,"getAll"]);
-    Route::get("/{id}", [ApiStaffController::class, "getOne"]);
+    Route::get("", [ApiStaffController::class,"all"]);
+    Route::get("/{id}", [ApiStaffController::class, "get"]);
     
 });
 Route::prefix("/feedback")->group(function(){
-    Route::post("add",[ApiFeedbackController::class,"postFeedback"]);
-    Route::get("/{id}", [ApiFeedbackController::class,"getFeedback"]);
-    Route::get("booking_id/{id}", [ApiFeedbackController::class, "getFeedbackByBooking"]);
-   
+    Route::post("post",[ApiFeedbackController::class,"post"]);
+    Route::get("/{id}", [ApiFeedbackController::class,"get"]);
+    Route::get("booking/{id}", [ApiFeedbackController::class, "getFeedbackByBooking"]);
 });
