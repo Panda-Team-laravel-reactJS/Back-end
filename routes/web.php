@@ -21,8 +21,8 @@ Route::prefix("/")->group(function() {
     Route::get("login", fn() => view("pages.login"))->name("login");
     Route::post("login", [HomeController::class, "login"]);
 });
-Route::middleware(AdminAuth::class)->group(function() {
+// Route::middleware(AdminAuth::class)->group(function() {
     Route::prefix("/Customers")->group(function() {
-        Route::get("", [CustomerController::class, "index"])->name("customer.index");
+        Route::get("", [CustomerController::class, "index"])->name("customers.index");
     });
-});
+// });
