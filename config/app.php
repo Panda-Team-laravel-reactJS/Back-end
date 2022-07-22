@@ -210,6 +210,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        "AdminLogin" => App\Core\AdminLogin\AdminLogin\AdminLogin::class,
     ])->toArray(),
 
 ];
