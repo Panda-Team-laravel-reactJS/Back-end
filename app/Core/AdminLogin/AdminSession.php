@@ -1,5 +1,5 @@
 <?php
-namespace App\Core;
+namespace App\Core\AdminLogin;
 
 use App\Models\Admin;
 
@@ -10,11 +10,8 @@ class AdminSession {
         $this->userName = $admin->username;
         $this->accessToken = $admin->access_token;
     }
-    public function getUserName() {
-        return $this->userName;
-    }
-    public function getAccessToken() {
-        return $this->accessToken;
+    public function toArray() {
+        return [ "userName" => $this->userName, "accessToken" => $this->accessToken ];
     }
 }
 ?>
