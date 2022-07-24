@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Core\AdminLogin\AdminLogin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -25,7 +24,7 @@ class HomeController extends Controller
         if (AdminLogin::login($request)) {
             return redirect()->route("home.index");
         }
-        return view("pages.index", ["pwdError" => "Mật khẩu sai! Vui lòng thử lại."]);
+        return view("pages.login", ["pwdError" => "Mật khẩu sai! Vui lòng thử lại."]);
     }
     public function index()
     {

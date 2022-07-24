@@ -11,7 +11,7 @@ class CustomerController extends Controller
     public function index(){
         $customers = Customer::join("accounts", "customers.id", "=", "accounts.customer_id")
                                 ->get();
-        return view('pages.customer.index',compact('customers'));
+        return view('pages.customers.index',compact('customers'));
         // create view admin trong folder customers
     }
     // Delete 1 customer 
