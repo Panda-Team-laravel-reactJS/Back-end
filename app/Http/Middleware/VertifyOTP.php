@@ -19,13 +19,13 @@ class VertifyOTP
     public function handle(Request $request, Closure $next)
     {
         $otp = Account::select("OTP", "OTP_expired")->where("username", $request->username)->first();
-        if ($otp == null) return ["error" => "User is not found!", "status" => "fail"];
+        if ($otp == null) return response()->json(["error" => "User is not found!", "status" => false]);
         
         $now = date_create("now", new DateTimeZone("Asia/Ho_Chi_Minh"))->getTimestamp();
         $otpExpired = date_create($otp->OTP_expired)->getTimestamp();
-        if ($now > $otpExpired) return ["error" => "OTP has expired!", "status" => "fail"];
+        if ($now > $otpExpired) return response()->json(["error" => "OTP has expired!", "status" => false]);
         if ($otp->OTP != $request->OTP)
-            return ["error" => "OTP is wrong!", "status" => "fail"];
+            return response()->json(["error" => "OTP is wrong!", "status" => "fail"]);
         return $next($request); 
     }
 }

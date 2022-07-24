@@ -10,12 +10,12 @@ use App\Models\Staff;
 
 class ApiStaffController extends Controller
 {
-    public function getAll()
+    public function all()
     {
         $staff = Staff::get();
         return $staff == null ? ["error" => "No data", "status" => false] : new StaffCollection($staff);
     }
-    public function getOne($id)
+    public function get($id)
     {
         $staff = Staff::find($id);
         return $staff == null ? ["error" => "Can't find this staff", "status" => false] : new StaffResource($staff);

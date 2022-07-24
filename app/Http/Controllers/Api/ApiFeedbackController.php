@@ -14,14 +14,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiFeedbackController extends Controller
 {
-    public function postFeedback(Request $request)
+    public function post(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "content" => "required|string",
+            "content" => "required",
+            "bookingId" => "required|exists:App\Models\Booking, id"
 
         ], [
             "content.required" => "Nội dung không được để trống!",
-            "content.string" => "Phản hồi của khách hàng phải bao gồm các ký tự và số "
+            "bookingId.required" => "Booking id không được để trống!",
+            "bookingId.exists" => "Booking id khoog tồn tại! "
         ]);
         if ($validator->fails()) {
             return ["error" => $validator->errors(), "status" => false];
@@ -30,7 +32,7 @@ class ApiFeedbackController extends Controller
         try {
 
             $feedback = new FeedBack();
-            $feedback->booking_id = $request->booking_id;
+            $feedback->booking_id = $request->bookingId;
             $feedback->content = $request->content;
             $feedback->save();
         } catch (Exception $e) {
@@ -39,17 +41,17 @@ class ApiFeedbackController extends Controller
         }
         return ["status" => true, "error" => ""];
     }
-    public function getFeedback($id)
+    public function get($id)
     {
         $feedback = Feedback::find($id);
         return $feedback == null ? ["error" => "Can't find this feedback", "status" => false] : new FeedbackResource($feedback);
     }
-    public function getFeedbackByBooking($booking_id)
+    public function getFeedbackByBooking($bookingId)
     {
-        $feedback = Feedback::find($booking_id);
+        $feedback = Feedback::find($bookingId);
         return $feedback == null ? ["error" => "Can't find this feedback", "status" => false] : new FeedbackResource($feedback);
     }
-    public function getAllFeedback()
+    public function all()
     {
         $feedback = FeedBack::get();
         return $feedback == null ? ["error" => "No data", "status" => false] : new FeedbackCollection($feedback);

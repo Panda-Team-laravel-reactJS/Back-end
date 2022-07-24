@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\AdminAuth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name("home.index");
+Route::prefix("/")->group(function() {
+    Route::get("login", fn() => view("pages.login"))->name("login");
+    Route::post("login", [HomeController::class, "login"])->name("verifyLogin");
+});
+    Route::prefix("/Customers")->group(function() {
+        Route::get("", [CustomerController::class, "index"])->name("customers.index");
+    });
