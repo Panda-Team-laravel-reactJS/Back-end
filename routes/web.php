@@ -1,9 +1,12 @@
 <?php
 
+use App\Core\Constants\SessionConstants;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminAuth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +18,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [HomeController::class, 'index'])->name("home.index");
-Route::prefix("/")->group(function() {
-    Route::get("login", fn() => view("pages.login"))->name("login");
-    Route::post("login", [HomeController::class, "login"])->name("verifyLogin");
+//Route for testing
+Route::get("/test", function() {
+    return Session(SessionConstants::ADMIN);
 });
-    Route::prefix("/Customers")->group(function() {
-        Route::get("", [CustomerController::class, "index"])->name("customers.index");
-    });
+//Route for production
+Route::get('/', [HomeController::class, 'index'])->name("home.index");
+Route::prefix("/login")->group(function () {
+    Route::get("", fn () => view("pages.login"))->name("login");
+    Route::post("", [HomeController::class, "login"])->name("verifyLogin");
+});
+Route::prefix("/Customers")->group(function () {
+    Route::get("", [CustomerController::class, "index"])->name("customers.index");
+});
