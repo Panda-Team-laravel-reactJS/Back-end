@@ -7,6 +7,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="assets/css/main/app.css">
     <link rel="stylesheet" href="assets/css/main/app-dark.css">
+    <link rel="stylesheet" href="assets/css/main/custom-styles.css">
     <link rel="shortcut icon" href="assets/images/logo/logo.jpg" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/logo/logo.jpg" type="image/png">
     <link rel="stylesheet" href="assets/css/shared/iconly.css">
@@ -16,6 +17,9 @@
     @yield('css')
 
 </head>
+@php
+use App\Core\AdminLogin\AdminLogin;
+@endphp
 
 <body>
     <div id="app">
@@ -58,7 +62,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <div class="sidebar-toggler  x">
+                        <div class="sidebar-toggler x">
                             <a href="#" class="sidebar-hide d-xl-none d-block">
                                 <i class="bi bi-x bi-middle"></i>
                             </a>
@@ -69,22 +73,34 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                        <li class="sidebar-item" id="homePage">
+                            <a href="{{ route('home.index') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
-
-                        </ul>
+                        <li class="sidebar-item" id="customersPage">
+                            <a href="{{ route('customers.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Customers</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
+            <header class="mb-5 row justify-content-center align-items-center text-light"
+                style="background: #1e1e2d; height: 3rem">
+                <div class="col-6" style="font-size: 1.2rem">
+                    Welcome, <b>{{ AdminLogin::admin()['userName'] }}</b>!
+                </div>
+                <div class="col-6 text-end">
+                    <a href="/logout">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </div>
+
             </header>
 
             @yield('content')
@@ -104,7 +120,10 @@
     </div>
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/dashboard.js"></script>
-    {{-- <script src="/assets/js/horizontal-layout.js" /> --}}
+    <script>
+        var page = "{{Session("page")}}"
+        document.getElementById(page).classList.add("active")
+    </script>
     @yield('scripts')
 </body>
 

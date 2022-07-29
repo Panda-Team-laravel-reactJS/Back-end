@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Core\AdminLogin\AdminLogin;
 use App\Core\Constants\SessionConstants;
 use App\Models\Admin;
 use Closure;
@@ -20,8 +21,7 @@ class AdminAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $adminSession = Session(SessionConstants::ADMIN);
-        if (empty($adminSession) || Hash::check(Admin::find($adminSession["userName"])->access_token, $adminSession["accessToken"])) {
+        if (!AdminLogin::check()) {
             return redirect()->route("login");
         }  
         return $next($request);

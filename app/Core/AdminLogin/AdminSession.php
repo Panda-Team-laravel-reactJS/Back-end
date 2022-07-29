@@ -17,6 +17,7 @@ class AdminSession {
     private function generateAccessToken(Admin $admin) {
         $admin->access_token = Str::random(30);
         $this->accessToken = Hash::make($admin->access_token);
+        $admin->save();
     }
 }
 ?>

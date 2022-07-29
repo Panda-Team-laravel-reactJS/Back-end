@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Core\AdminLogin\AdminLogin;
+use App\Core\Constants\SessionConstants;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -26,8 +28,13 @@ class HomeController extends Controller
         }
         return view("pages.login", ["pwdError" => "Mật khẩu sai! Vui lòng thử lại."]);
     }
+    public function logout() {
+        AdminLogin::logout();
+        return redirect()->route("login");
+    }
     public function index()
     {
+        Session::put(SessionConstants::PAGE, "homePage");
         return view("pages.index");
     }
 }

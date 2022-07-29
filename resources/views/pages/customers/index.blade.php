@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Customer | Index')
 @section('content')
-    <table class="table text-light">
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col">Name</th>
