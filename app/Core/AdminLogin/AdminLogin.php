@@ -14,12 +14,10 @@ class AdminLogin {
         if ($check) {
             Session::put(SessionConstants::ADMIN, (new AdminSession($admin))->toArray());
         }
-        return Session(SessionConstants::ADMIN);
         return $check;
     }
     public static function logout() {
         Session::forget(SessionConstants::ADMIN);
-        return redirect()->route("login");
     }
     public static function check() {
         return !empty(Session(SessionConstants::ADMIN));

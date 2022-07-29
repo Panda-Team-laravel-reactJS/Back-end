@@ -23,11 +23,16 @@ Route::get("/test", function() {
     return Session(SessionConstants::ADMIN);
 });
 //Route for production
-Route::get('/', [HomeController::class, 'index'])->name("home.index");
+
+Route::middleware(AdminAuth::class)->group(function() {
+    Route::get('/', [HomeController::class, 'index'])->name("home.index");
+    Route::get('/logout', [HomeController::class, 'logout'])->name("home.logout");
+    Route::prefix("/customers")->group(function () {
+        Route::get("", [CustomerController::class, "index"])->name("customers.index");
+    });
+});
 Route::prefix("/login")->group(function () {
     Route::get("", fn () => view("pages.login"))->name("login");
     Route::post("", [HomeController::class, "login"])->name("verifyLogin");
 });
-Route::prefix("/Customers")->group(function () {
-    Route::get("", [CustomerController::class, "index"])->name("customers.index");
-});
+

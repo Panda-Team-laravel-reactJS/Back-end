@@ -12,7 +12,7 @@ class ApiServiceController extends Controller
 {
     public function all()
     {
-        $services = Service::get();
+        $services = Service::where("is_displayed", 1)->get();
         return $services->isEmpty() ? ["error" => "No data", "status" => false] : new ServiceCollection($services);
     }
     public function get($id)

@@ -15,12 +15,12 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        $serviceList = Service::where("category_id", $this->id)->get();
+        $serviceList = Service::where("category_id", $this->id)->where("is_displayed", 1)->get();
         return [
             "id" => $this->id,
             "name" => $this->name,
             "image" =>$this->image,
-            "serviceList" => new ServiceCollection($serviceList )
+            "serviceList" => new ServiceCollection($serviceList)
         ];
     }
 }
