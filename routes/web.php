@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Session;
 */
 //Route for testing
 Route::get("/test", function() {
-    return Session(SessionConstants::ADMIN);
+    return empty(false);
 });
 //Route for production
 

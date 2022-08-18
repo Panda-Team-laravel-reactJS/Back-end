@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
-use Dotenv\Validator;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class ApiBookingController extends Controller
 {
@@ -28,15 +29,35 @@ class ApiBookingController extends Controller
     }
     public function book(Request $request)
     {
-        $validator = FacadesValidator::make(
+        $validator = Validator::make(
             $request->all(),
             [
-                "service_id" => "required:exists:App\Models\Service,id",
-                "customer_id" => "required:exists:App\Models\Customer,id",
-                "startTime" => "required|date|after_or_equal:now",
-                "endTime" => "required|date|after:startTime"
+                "service" => "required:exists:App\Models\Service,id",
+                "expectedDate" => "required|date|after_or_equal:now",
+                "expectedTime" => "required"
             ],
-            []
+            [
+                "service.required" => "Bạn chưa chọn dịch vụ!",
+                "service.exists" => "Dịch vụ không tồn tại!",
+                "expectedDate.required" => "Ngày dự kiến không được để trống!",
+                "expectedDate.after_or_equal" => "Ngày dự kiến lớn hơn hằng bằng hôm nay!",
+                "expectedTime.required" => "Giờ dự kiến không được để trống!",
+            ]
         );
+        if ($validator->fails()) {
+            return ["status" => false, "errors" => $validator->errors()];
+        }
+        try {
+            $booking = new Booking();
+            $booking->customer_id = $request->customerId;
+            $booking->service_id = $request->service;
+            $booking->booking_date = date_create()->format("Y-m-d H:i:s");
+            $booking->expected_date = $request->expectedDate;
+            $booking->expected_time = $request->expectedTime;
+            $booking->save();
+        } catch (Exception $e) {
+            return ["status" => false, "errors" => $e->getMessage()];
+        }
+        return ["status" => true, "errors" => null];
     }
 }
