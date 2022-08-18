@@ -7,7 +7,7 @@ use Closure;
 use DateTimeZone;
 use Illuminate\Http\Request;
 
-class VertifyOTP
+class VerifyOTP
 {
     /**
      * Handle an incoming request.
