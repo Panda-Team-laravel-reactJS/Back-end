@@ -31,9 +31,9 @@ Route::prefix("/categories/")->group(function(){
     Route::get("", [ApiCategoryController::class,"all"]);
     Route::get("{id}", [ApiCategoryController::class,"get"]);
 });
-Route::prefix("/customer/")->group(function(){
-    Route::get("{id}", [ApiCustomerController::class,"get"]);
-    Route::put("edit/{id}", [ApiCustomerController::class, "edit"]);
+Route::prefix("/customer/")->middleware(VerifyAccessToken::class)->group(function(){
+    Route::post("info", [ApiCustomerController::class,"getInfo"]);
+    Route::post("edit", [ApiCustomerController::class, "edit"]);
 });
 Route::prefix("/service/")->group(function(){
     Route::get("", [ApiServiceController::class,"all"]);

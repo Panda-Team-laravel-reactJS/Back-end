@@ -17,7 +17,7 @@ class VerifyAccessToken
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Account::select(["access_token", "customer_id"])->where("username", $request->username)->first();
+        $user = Account::select(["access_token", "customer_id"])->where("username", $request->userName)->first();
         if ($user == null) return response()->json(["errors" => ["user" => "User is not found!"], "status" => false]);
         if ($user->access_token != $request->accessToken)
             return response()->json(["errors" => ["accessToken" => "Access token is not correct!"], "status" => false]);
