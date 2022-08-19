@@ -1,15 +1,20 @@
 <?php
  
 namespace App\Http\Controllers;
- 
+
+use App\Core\Constants\SessionConstants;
+use App\Http\Resources\ServicesAdmin;
 use Illuminate\Http\Request;
 use App\Models\Service;
- 
+use Illuminate\Support\Facades\Session;
+
 class ServiceController extends Controller
 {
     //view all staff
     public function index(){
-        $services = Service::all();
+        // $services = Service::all();
+        $services = ServicesAdmin::toArray(Service::get());
+        Session::put(SessionConstants::PAGE, "servicesPage");
         return view('pages.services.index',compact('services'));
     }
     // hien form

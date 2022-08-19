@@ -11,6 +11,9 @@ class Booking extends Model
     public function feedbacks() {
         return $this->hasMany(FeedBack::class, "booking_id", "id");
     }
+    public function customer() {
+        return $this->belongsTo(Customer::class, "customer_id", "id");
+    }
     public function schedule() {
         return $this->belongsTo(Schedule::class, "schedule_id", "id");
     }
