@@ -2,7 +2,9 @@
 
 use App\Core\Constants\SessionConstants;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SpaStaffController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\AdminAuth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +32,24 @@ Route::middleware(AdminAuth::class)->group(function() {
     Route::prefix("/customers")->group(function () {
         Route::get("", [CustomerController::class, "index"])->name("customers.index");
     });
+    Route::prefix("/staff")->group(function () {
+    Route::get("", [SpaStaffController::class, "index"])->name("staff.index");
+    // Route::get("addForm", [SpaStaffController::class, "index"])->name("staff.index");
+    Route::post('delete/{id}', [SpaStaffController::class, 'delete']);
+
+        
+    });
+    Route::prefix("/categories")->group(function () {
+        Route::get("", [CategoryController::class, "index"])->name("Categories.index");
+    
+            
+        });
+    
+
+
+    
 });
+
 Route::prefix("/login")->group(function () {
     Route::get("", fn () => view("pages.login"))->name("login");
     Route::post("", [HomeController::class, "login"])->name("verifyLogin");

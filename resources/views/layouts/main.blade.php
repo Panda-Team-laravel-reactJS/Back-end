@@ -85,6 +85,18 @@ use App\Core\AdminLogin\AdminLogin;
                                 <span>Customers</span>
                             </a>
                         </li>
+                        <li class="sidebar-item" id="staffPage">
+                            <a href="{{ route('staff.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Staff</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item" id="catagoriesPage">
+                            <a href="{{ route('Categories.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Catagories</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

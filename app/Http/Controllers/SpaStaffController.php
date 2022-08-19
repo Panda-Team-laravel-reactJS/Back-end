@@ -6,7 +6,7 @@ use App\Models\Staff;
 
 use Illuminate\Http\Request;
 
-class SpaStaffControlller extends Controller
+class SpaStaffController extends Controller
 {
     //view all staff
     public function index(){
@@ -25,9 +25,9 @@ class SpaStaffControlller extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email'=> 'required',
-            'address'=> 'required',
+            'image'=> 'required',
             'gender'=> 'required',
+            'position'=> 'required',
         ]);
         Staff::create($request -> all());
         return redirect()->route('staff.index')->with('success','1 new staff created sucessfully');
@@ -44,12 +44,9 @@ class SpaStaffControlller extends Controller
     public function update(Request $request,$id){
         $request->validate([
             'name' => 'required',
-            'email'=> 'required',
-            'address'=> 'required',
+            'image'=> 'required',
             'gender'=> 'required',
-            'dob'=> 'required',
-            'phone'=> 'required',
-            'salary'=> 'required',
+            'position'=> 'required',
 
         ]);
         $staff = Staff::find($id);
