@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
     
-    public function service() {
+    public function services() {
         return $this->hasMany(Services::class,"category_id","id");
     }
 }

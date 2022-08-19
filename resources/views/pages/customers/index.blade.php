@@ -35,7 +35,7 @@
                         <td>{{ $customer->address }}</td>
                         <td>{{ $customer->gender }}</td>
                         <td>{{ $customer->dob }}</td>
-                        <td>{{ $customer->created_at }}</td>
+                        <td>{{ date_create($customer->created_at)->format("d-m-Y H:i:s")}}</td>
                         <td>
                             <button class="btn btn-danger mb-2">
                                 <i class="bi bi-x-octagon-fill"></i>
