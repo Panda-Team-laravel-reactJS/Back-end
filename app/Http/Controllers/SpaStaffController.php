@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Constants\SessionConstants;
 use App\Models\Staff;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SpaStaffController extends Controller
 {
     //view all staff
     public function index(){
         $staff = Staff::all();
+        Session::put(SessionConstants::PAGE, "staffPage"); 
         return view('pages.staff.index',compact('staff'));
-        // create view admin trong folder staff
     }
     // hien form
     public function create(){

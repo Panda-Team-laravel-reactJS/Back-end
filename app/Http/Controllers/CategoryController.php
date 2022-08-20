@@ -1,14 +1,18 @@
 <?php
  
 namespace App\Http\Controllers;
- 
+
+use App\Core\Constants\SessionConstants;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Session;
+
 class CategoryController extends Controller
 {
     //view
     public function index(){
         $categories = Category::all();
+        Session::put(SessionConstants::PAGE, "categoriesPage");
         return view('pages.categories.index',compact('categories'));
    
     }

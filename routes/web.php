@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Middleware\AdminAuth;
+use App\Http\Middleware\ApiCORS;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -23,9 +24,9 @@ use Illuminate\Support\Facades\Session;
 |
 */
 //Route for testing
-Route::get("/test", function () {
-    return empty(false);
-});
+// Route::get("/test", function () {
+//     return empty(false);
+// });
 //Route for production
 
 Route::middleware(AdminAuth::class)->group(function () {
